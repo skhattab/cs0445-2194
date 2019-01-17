@@ -3,6 +3,8 @@
 * @@version 0.1
 */
 
+import java.util.Arrays;
+
 public class ArrayBag<T> implements BagInterface<T> {
 
 	private final T[] bag;
@@ -17,8 +19,8 @@ public class ArrayBag<T> implements BagInterface<T> {
 
 	public ArrayBag(int capacity) {
 		if(capacity > MAX_CAPACITY) {
-			throw new IllegalStateException("An ArrayBag is created with a capacity that exceeds"
-					+ " the maximum capacity.");
+			throw new IllegalStateException("An ArrayBag is created with a capacity "
+			                                 + "that exceeds the maximum capacity.");
 		} else {
 			@SuppressWarnings("unchecked")
 			T[] temp = (T[]) new Object[capacity];
@@ -29,32 +31,50 @@ public class ArrayBag<T> implements BagInterface<T> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return numberOfItems == 0;
 	}
 
 	@Override
 	public int getCurrentSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return numberOfItems;
 	}
 
 	@Override
 	public boolean add(T item) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		if(numberOfItems != bag.length){
+			bag[numberOfItems] = item;
+			numberOfItems++;
+			result = true;
+		}
+		return result;
 	}
 
 	@Override
 	public T remove() {
-		// TODO Auto-generated method stub
-		return null;
+		T result = null;
+		if(!isEmpty()){
+			result = bag[numberOfItems - 1];
+			bag[numberOfItems-1] = null;
+			numberOfItems--;
+		}
+		return result;
 	}
 
 	@Override
 	public boolean contains(T item) {
-		// TODO Auto-generated method stub
-		return false;
+  /* The commented code is more efficient! */
+	/*	boolean result = false;
+		for(int i=0; i<numberOfItems; i++) {
+			if(bag[i].equals(item)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+		*/
+		return getFrequencyOf(item) > 0;
+
 	}
 
 	@Override
@@ -65,19 +85,41 @@ public class ArrayBag<T> implements BagInterface<T> {
 
 	@Override
 	public int getFrequencyOf(T item) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		for(int i=0; i<numberOfItems; i++){
+			if(bag[i].equals(item)){
+				result++;
+			}
+		}
+		return result;
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		//return bag;  WRONG!!
+		@SuppressWarnings("unchecked")
+		T[] result = (T[])new Object[numberOfItems];
+		for(int i=0; i< numberOfItems; i++){
+			result[i] = bag[i];
+		}
+		return result;
+		//return Arrays.copyOf(bag, numberOfItems);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		//bag = null;
+		//numberOfItems = 0;
+
+		//for(int i=0; i< numberOfItems; i++) {
+		//   bag[i] = null;
+		//numberOfItems = 0;
+
+		while(!isEmpty()){
+			remove();
+		}
+
+	}
 
 	}
 
