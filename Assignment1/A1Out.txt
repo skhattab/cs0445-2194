@@ -1,0 +1,104 @@
+0 added to Q
+2 added to Q
+4 added to Q
+6 added to Q
+8 added to Q
+Contents:
+0 2 4 6 8 
+
+0 added to Q
+2 added to Q
+4 added to Q
+6 added to Q
+8 added to Q
+No room for 10
+0 retrieved from Q
+2 retrieved from Q
+4 retrieved from Q
+6 retrieved from Q
+8 retrieved from Q
+Nothing in the Q
+Adding Item 1
+Adding Item 2
+Removing Item 1
+Adding Item 3
+Removing Item 2
+Adding Item 4
+Removing Item 3
+Adding Item 5
+Removing Item 4
+Adding Item 6
+Removing Item 5
+Adding Item 7
+Removing Item 6
+Adding Item 8
+Removing Item 7
+Adding Item 9
+Removing Item 8
+1 item(s) in the queue.
+
+About to test Reorder methods
+Contents:
+0 1 2 3 4 5 6 7 
+
+Reversing
+Contents:
+7 6 5 4 3 2 1 0 
+
+Removing 3 items then adding 1
+Contents:
+4 3 2 1 0 8 
+
+Reversing
+Contents:
+8 0 1 2 3 4 
+
+Shifting right
+Contents:
+4 8 0 1 2 3 
+
+Shifting left twice
+Contents:
+0 1 2 3 4 8 
+
+leftRotate(9)
+Contents:
+3 4 8 0 1 2 
+
+leftRotate(10)
+Contents:
+1 2 3 4 8 0 
+
+leftRotate(11)
+Contents:
+0 1 2 3 4 8 
+
+rightRotate(22)
+Contents:
+2 3 4 8 0 1 
+
+rightRotate(-3)
+Contents:
+8 0 1 2 3 4 
+
+leftRotate(-4)
+Contents:
+1 2 3 4 8 0 
+
+
+About to test shuffle...
+Contents:
+0 1 2 3 4 5 6 7 8 9 
+
+Shuffling...
+Contents:
+8 3 9 2 6 1 0 4 5 7 
+
+Removing 2 and adding 1
+Contents:
+9 2 6 1 0 4 5 7 22 
+
+Shuffling again
+Contents:
+22 1 0 7 5 2 9 6 4 
+

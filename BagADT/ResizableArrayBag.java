@@ -1,25 +1,19 @@
-/** A class for an array-based implementation of the Bag ADT
-* @@author Sherif Khattab
-* @@version 0.1
-*/
-
 import java.util.Arrays;
 
-public final class ArrayBag<T> implements BagInterface<T> {
-
-	private final T[] bag;
+public final class ResizableArrayBag<T> implements BagInterface<T> {
+  private T[] bag;
 	private int numberOfItems;
 
 	private boolean initialized = false;
 
-	private static final int MAX_CAPACITY = 100;
-	private static final int DEFAULT_CAPACITY = 20;
+	private static final int MAX_CAPACITY = 4096;
+	private static final int DEFAULT_CAPACITY = 32;
 
-	public ArrayBag() {
+	public ResizableArrayBag() {
 		this(DEFAULT_CAPACITY);
 	}
 
-	public ArrayBag(int capacity) {
+	public ResizableArrayBag(int capacity) {
 		if(capacity > MAX_CAPACITY) {
 			throw new IllegalStateException("An ArrayBag is created with a capacity "
 			                                 + "that exceeds the maximum capacity.");
@@ -51,11 +45,15 @@ public final class ArrayBag<T> implements BagInterface<T> {
 		checkInitialization();
 
 		boolean result = false;
-		if(numberOfItems != bag.length){
-			bag[numberOfItems] = item;
-			numberOfItems++;
-			result = true;
-		}
+
+		bag[numberOfItems] = item;
+		numberOfItems++;
+
+    if(numberOfItems == bag.length){
+      doubleSize();
+    }
+
+		result = true;
 		return result;
 	}
 
@@ -174,5 +172,17 @@ public final class ArrayBag<T> implements BagInterface<T> {
 																		"uninitialized object of class ArrayBag.");
 		}
 	}
+  private void doubleSize() {
+    int newSize = bag.length*2;
+    if(newSize > MAX_CAPACITY){
+      throw new IllegalStateException("Maximum size = "
+                                       + MAX_CAPACITY +
+                                      " of array exceeded.");
+    }
+
+    bag = Arrays.copyOf(bag, newSize);
+
+  }
+
 
 }
