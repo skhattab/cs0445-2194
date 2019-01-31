@@ -45,6 +45,7 @@ public T remove(){
   if(!isEmpty()){
     result = firstNode.data;
     firstNode = firstNode.next;
+    numberOfItems--;
   }
   return result;
 }
@@ -85,6 +86,7 @@ public boolean remove(T item){
         if(item.equals(currentNode.next.data)){
             currentNode.next = currentNode.next.next;
             result = true;
+            numberOfItems--;
             break;
         }
         currentNode = currentNode.next;
