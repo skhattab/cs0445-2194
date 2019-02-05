@@ -87,6 +87,7 @@ public boolean remove(T item){
             currentNode.next = currentNode.next.next;
             result = true;
             numberOfItems--;
+
             break;
         }
         currentNode = currentNode.next;

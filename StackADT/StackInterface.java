@@ -12,9 +12,9 @@ public interface StackInterface<T> {
   public T pop();
 
   /** Returns the top of the stack
-  ** without removing import junit.framework.TestCase;
+  ** without removing it
   ** @return the top of the stack
-  ** @throws EmptyStackException if the stack is EmptyQueueException
+  ** @throws EmptyStackException if the stack is empty
   **/
   public T peek();
 
@@ -22,7 +22,7 @@ public interface StackInterface<T> {
   **/
   public boolean isEmpty();
 
-  /** remove all items from the stack 
+  /** remove all items from the stack
   **/
   public void clear();
 
