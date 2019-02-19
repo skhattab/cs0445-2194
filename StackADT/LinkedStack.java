@@ -66,6 +66,16 @@ public final class LinkedStack<T> implements StackInterface<T> {
     }
   }
 
+  public String toString(){
+    StringBuilder result = new StringBuilder();
+    Node currentNode = topNode;
+    while(currentNode != null){
+      result.append(currentNode.data);
+      currentNode = currentNode.next;
+    }
+    return result.toString();
+  }
+
 
   private class Node {
     T data;
