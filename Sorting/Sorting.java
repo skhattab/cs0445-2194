@@ -1,6 +1,7 @@
 import java.util.Arrays; // For easy printing of arrays in main().
 
 public class Sorting {
+    private static final int THRESHOLD = 20;
     public static void main(String[] args) {
         Integer[] test1 = new Integer[]{3, 0, -2, 7, 10, 2, 22, 5, 7, 4};
         String[] test2 = new String[]{"Hello", "CS445", "Spring Break", "Amazing"};
@@ -15,9 +16,13 @@ public class Sorting {
         // insertionSort(test2);
         // System.out.println("Test2 after insertion sort\n" + Arrays.toString(test2));
 
-        System.out.println("Test2 before merge sort\n" + Arrays.toString(test1));
-        mergeSort(test1, test1.length);
-        System.out.println("Test2 after merge sort\n" + Arrays.toString(test1));
+        // System.out.println("Test2 before merge sort\n" + Arrays.toString(test1));
+        // mergeSort(test1, test1.length);
+        // System.out.println("Test2 after merge sort\n" + Arrays.toString(test1));
+
+        System.out.println("Test2 before quick sort\n" + Arrays.toString(test1));
+        quicksort(test1, 0, test1.length-1);
+        System.out.println("Test2 after quick sort\n" + Arrays.toString(test1));
 
     }
 
@@ -43,6 +48,12 @@ public class Sorting {
 
     private static void swap(int[] a, int i, int j) {
         int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    private static <T> void swap(T[] a, int i, int j) {
+        T temp = a[i];
         a[i] = a[j];
         a[j] = temp;
     }
@@ -140,6 +151,61 @@ public class Sorting {
          @SuppressWarnings("unchecked")
          T[] temp = (T[]) new Comparable<?>[size];
          mergeSort(a, temp, 0, size-1);
+       }
+
+       public static <T extends Comparable<? super T>>
+       void quicksort(T[] a, int first, int last){
+         int size = last - first + 1;
+         if(size < THRESHOLD){
+           insertionSort(a);
+         } else {
+           int pivotIndex = partition(a, first, last);
+           quicksort(a, first, pivotIndex-1);
+           quicksort(a, pivotIndex+1, last);
+         }
+       }
+
+       private static <T extends Comparable<? super T>>
+       int partition(T[] a, int first, int last){
+         int mid = first + (last - first)/2;
+         sorttFirstMidLast(a, first, last);
+         T pivot = a[mid];
+         swap(a, mid, last - 1);
+         boolean done = false;
+         int indexFromLeft = first + 1;
+         int indexFromRight = last - 2;
+
+         while(!done){
+           while(a[indexFromLeft].compareTo(pivot)<0){
+             indexFromLeft++;
+           }
+
+           while(a[indexFromRight].compareTo(pivot) >=0){
+             indexFromRight--;
+           }
+
+           if(indexFromRight < indexFromLeft){
+             done = true;
+           } else {
+             swap(a, indexFromLeft, indexFromRight);
+             indexFromRight--;
+             indexFromLeft++;
+           }
+         }
+         swap(a, last-1, indexFromLeft);
+         return indexFromLeft;
+       }
+
+       private static <T extends Comparable<? super T>>
+       void sorttFirstMidLast(T[] a, int first, int last){
+         int mid = first + (last - first)/2;
+         if(a[mid].compareTo(a[first]) < 0)
+          swap(a, first, mid);
+        if(a[last].compareTo(a[mid]) < 0){
+          swap(a, mid, last);
+        }
+        if(a[mid].compareTo(a[first]) < 0)
+         swap(a, first, mid);
        }
 
 }
