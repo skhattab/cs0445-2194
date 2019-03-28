@@ -15,9 +15,9 @@ public class Sorting {
         // insertionSort(test2);
         // System.out.println("Test2 after insertion sort\n" + Arrays.toString(test2));
 
-        System.out.println("Test2 before shell sort\n" + Arrays.toString(test1));
-        ShellSort(test1, test1.length);
-        System.out.println("Test2 after shell sort\n" + Arrays.toString(test1));
+        System.out.println("Test2 before merge sort\n" + Arrays.toString(test1));
+        mergeSort(test1, test1.length);
+        System.out.println("Test2 after merge sort\n" + Arrays.toString(test1));
 
     }
 
@@ -89,5 +89,57 @@ public class Sorting {
                }//have you seen about time?
              }
     }
+
+    public static <T extends Comparable<? super T>>
+      void mergeSort(T[] a, T[] temp, int first, int last){
+        if(first < last){
+          int mid = first + (last - first)/2;
+          mergeSort(a, temp, first, mid);
+          mergeSort(a, temp, mid+1, last);
+          if(a[mid].compareTo(a[mid+1])> 0){
+            merge(a, temp, first, mid, last);
+          }
+        }
+      }
+    private static <T extends Comparable<? super T>>
+       void merge(T[] a, T[] temp, int first, int mid, int last){
+         int i = first;
+         int j = mid + 1;
+         int k = 0;
+         while((k < last - first + 1)
+               &&(i <= mid)
+               &&(j <= last)) {
+           if(a[i].compareTo(a[j]) <= 0) { //i <= j
+             temp[k] = a[i];
+             i++;
+           } else {
+             temp[k] = a[j];
+             j++;
+           }
+
+           k++;
+         }
+
+         for(; i <= mid; i++){
+           temp[k] = a[i];
+           k++;
+         }
+         for(; j <= last; j++){
+           temp[k] = a[j];
+           k++;
+         }
+
+         for(int l=0; l<last - first + 1; l++){
+           a[first + l] = temp[l];
+         }
+
+       }
+
+       public static <T extends Comparable<? super T>>
+       void mergeSort(T[] a, int size){
+         @SuppressWarnings("unchecked")
+         T[] temp = (T[]) new Comparable<?>[size];
+         mergeSort(a, temp, 0, size-1);
+       }
 
 }
