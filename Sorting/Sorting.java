@@ -21,7 +21,7 @@ public class Sorting {
         // System.out.println("Test2 after merge sort\n" + Arrays.toString(test1));
 
         System.out.println("Test2 before quick sort\n" + Arrays.toString(test1));
-        quicksort(test1, 0, test1.length-1);
+        quicksortv2(test1, 0, test1.length-1);
         System.out.println("Test2 after quick sort\n" + Arrays.toString(test1));
 
     }
@@ -60,14 +60,19 @@ public class Sorting {
 
     public static <T extends Comparable<? super T>>
     void insertionSort(T[] a) {
-        for(int i = 1; i < a.length; i++) {
+        insertionSort(a, 0, a.length-1);
+    }
+
+    public static <T extends Comparable<? super T>>
+    void insertionSort(T[] a, int first, int last) {
+        for(int i = first; i <= last; i++) {
             T key = a[i];
             int j = i-1;
 
             // Shift items to the right to make room
             // for the key.
             // Change to a[j].compareTo(key) < 0 to sort descending.
-            while(j >= 0 && a[j].compareTo(key) > 0) {
+            while(j >= first && a[j].compareTo(key) > 0) {
                 a[j+1] = a[j];
                 j--;
             }
@@ -163,6 +168,27 @@ public class Sorting {
            quicksort(a, first, pivotIndex-1);
            quicksort(a, pivotIndex+1, last);
          }
+       }
+
+       public static <T extends Comparable<? super T>>
+       void quicksortv2(T[] a, int first, int last){
+         while(last - first + 1 >= THRESHOLD){
+           int pivotIndex = partition(a, first, last);
+           //is first part smaller than second part?
+           if(pivotIndex - first < last - pivotIndex){
+             quicksort(a, first, pivotIndex-1);
+             //quicksort(a, pivotIndex+1, last);
+             //param = argument
+             //a = a;
+             //last = last;
+             first = pivotIndex + 1;
+           } else {
+               quicksort(a, pivotIndex+1, last);
+               last = pivotIndex - 1;
+             }
+         }
+         insertionSort(a, first, last);
+
        }
 
        private static <T extends Comparable<? super T>>
