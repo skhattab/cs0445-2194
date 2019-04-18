@@ -2,7 +2,7 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
 
   private BinaryNode<T> root;
 
-  private void setRoot(BinaryNode<T> root){
+  protected void setRoot(BinaryNode<T> root){
     this.root = root;
   }
 
@@ -10,6 +10,9 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
     root = null;
   }
 
+  public BinaryTree(){
+    root = null;
+  }
 
   public BinaryTree(T rootData){
     privateBuildTree(rootData, null, null);
@@ -34,13 +37,13 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
                                 BinaryTree<T> rightTree){
       root = new BinaryNode<>(rootData);
       if((leftTree != null) && (!leftTree.isEmpty())){
-        root.setLeft(leftTree.getRoot());
+        root.setLeftChild(leftTree.getRoot());
       }
       if((rightTree != null)&&(!rightTree.isEmpty())){
         if(leftTree == rightTree) {
-          root.setRight(rightTree.getRoot().copy());
+          root.setRightChild(rightTree.getRoot().copy());
         } else {
-          root.setRight(rightTree.getRoot());
+          root.setRightChild(rightTree.getRoot());
         }
       }
 
@@ -58,7 +61,7 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
     return root.getData();
   }
 
-  private BinaryNode<T> getRoot(){
+  protected BinaryNode<T> getRoot(){
     return root;
   }
   public int getHeight() throws EmptyTreeException {
@@ -96,29 +99,30 @@ public class BinaryTree<T> implements BinaryTreeInterface<T> {
       //visit the root
       System.out.println(root.getData());
       //left
-      preorderTraverse(root.getLeft());
+      preorderTraverse(root.getLeftChild());
       //right
-      preorderTraverse(root.getRight());
+      preorderTraverse(root.getRightChild());
     }
   }
 
   private void inorderTraverse(BinaryNode<T> root){
     if(root != null){
       //left
-      inorderTraverse(root.getLeft());
+      inorderTraverse(root.getLeftChild());
       //visit the root
       System.out.println(root.getData());
       //right
-      inorderTraverse(root.getRight());
+      inorderTraverse(root.getRightChild());
+      //have you seen about time?
     }
   }
 
   private void postorderTraverse(BinaryNode<T> root){
     if(root != null){
       //left
-      postorderTraverse(root.getLeft());
+      postorderTraverse(root.getLeftChild());
       //right
-      postorderTraverse(root.getRight());
+      postorderTraverse(root.getRightChild());
       //visit the root
       System.out.println(root.getData());
     }

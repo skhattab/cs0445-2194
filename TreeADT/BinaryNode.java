@@ -22,20 +22,28 @@ public class BinaryNode<T> {
     return data;
   }
 
-  public void setLeft(BinaryNode<T> left){
+  public void setLeftChild(BinaryNode<T> left){
     this.left = left;
   }
 
-  public BinaryNode<T> getLeft(){
+  public BinaryNode<T> getLeftChild(){
     return left;
   }
 
-  public void setRight(BinaryNode<T> right){
+  public void setRightChild(BinaryNode<T> right){
     this.right = right;
   }
 
-  public BinaryNode<T> getRight(){
+  public BinaryNode<T> getRightChild(){
     return right;
+  }
+
+  public boolean hasLeftChild(){
+    return left != null;
+  }
+
+  public boolean hasRightChild(){
+    return right != null;
   }
 
   public int getNumberOfNodes(){
